@@ -8,6 +8,9 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
+import com.example.learnkotlin.R
 import com.example.learnkotlin.data.models.Item
 import com.example.learnkotlin.data.repositories.ItemRepository
 import com.example.learnkotlin.databinding.FragmentFormBinding
@@ -27,7 +30,7 @@ class FormFragment : Fragment() {
 
     private fun subscribe() {
         viewModel.itemLiveData.observe( this) {
-
+            findNavController().navigate(R.id.action_formFragment_to_listFragment)
         }
     }
 
@@ -61,6 +64,9 @@ class FormFragment : Fragment() {
                     note = noteEt.editText?.text.toString()
                 )
                 viewModel.save(item)
+            }
+            cancelBtn.setOnClickListener {
+                Navigation.findNavController(requireView()).popBackStack()
             }
         }
         return binding.root
