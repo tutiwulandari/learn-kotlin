@@ -3,7 +3,7 @@ package com.example.learnkotlin.data.repositories
 import com.example.learnkotlin.data.models.Item
 import java.util.*
 
-class ItemRepository : ItemRepositoryInterface{
+class ItemRepository : ItemRepositoryInterface {
     companion object {
         var itemList = arrayListOf(
             Item(
@@ -30,5 +30,13 @@ class ItemRepository : ItemRepositoryInterface{
         )
     }
 
-    override fun list(): List<Item> = itemList
+    override fun save(item: Item): Item {
+        if (item.id == "") {
+            item.id = UUID.randomUUID().toString()
+            itemList.add(item)
+        }
+        return item
     }
+
+    override fun list(): List<Item> = itemList
+}

@@ -32,6 +32,7 @@ class ListFragment : Fragment() {
     private fun subscribe() {
         viewModel.itemsLiveData.observe(this) {
             Log.d("DATA", "$it")
+            rvAdapter.setData(it)
         }
     }
 

@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.example.learnkotlin.data.models.Item
 import com.example.learnkotlin.data.repositories.ItemRepositoryInterface
 
-class ListViewModel(val repositoryInterface: ItemRepositoryInterface): ViewModel() {
+class ListViewModel(private val repositoryInterface: ItemRepositoryInterface): ViewModel() {
     private var _itemsLiveData = MutableLiveData<List<Item>>()
 
     val itemsLiveData : LiveData<List<Item>>
