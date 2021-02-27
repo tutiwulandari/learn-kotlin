@@ -18,7 +18,8 @@ class ListViewAdapter : RecyclerView.Adapter<ListViewHolder>() {
     override fun getItemCount(): Int = items.size
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        val item = items[position]
+        holder.bind(item)
     }
 
     fun setData(data: List<Item>) {
