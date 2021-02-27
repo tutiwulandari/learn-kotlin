@@ -66,7 +66,7 @@ class FormFragment : Fragment() {
                 viewModel.save(item)
             }
             cancelBtn.setOnClickListener {
-                Navigation.findNavController(requireView()).popBackStack()
+                findNavController().navigate(R.id.action_formFragment_to_listFragment)
             }
         }
         return binding.root

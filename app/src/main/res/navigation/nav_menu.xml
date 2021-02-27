@@ -29,6 +29,7 @@
         tools:layout="@layout/fragment_form" >
         <action
             android:id="@+id/action_formFragment_to_listFragment"
-            app:destination="@id/listFragment" />
+            app:destination="@id/listFragment"
+            app:popUpTo="@id/menuFragment" />
     </fragment>
 </navigation>
