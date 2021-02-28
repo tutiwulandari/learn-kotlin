@@ -11,17 +11,24 @@
         android:label="fragment_menu"
         tools:layout="@layout/fragment_menu" >
         <action
-            android:id="@+id/action_menuFragment_to_listFragment"
-            app:destination="@id/listFragment" />
-        <action
             android:id="@+id/action_menuFragment_to_formFragment"
             app:destination="@id/formFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_listFragment3"
+            app:destination="@id/listFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/listFragment"
         android:name="com.example.learnkotlin.list.ListFragment"
         android:label="fragment_list"
-        tools:layout="@layout/fragment_list" />
+        tools:layout="@layout/fragment_list" >
+        <action
+            android:id="@+id/action_listFragment_to_formFragment"
+            app:destination="@id/formFragment"
+            app:popUpTo="@id/menuFragment" />
+    </fragment>
+
     <fragment
         android:id="@+id/formFragment"
         android:name="com.example.learnkotlin.form.FormFragment"
@@ -31,5 +38,9 @@
             android:id="@+id/action_formFragment_to_listFragment"
             app:destination="@id/listFragment"
             app:popUpTo="@id/menuFragment" />
+        <argument
+            android:name="edit_item"
+            app:argType="com.example.learnkotlin.data.models.Item"
+            app:nullable="true" />
     </fragment>
 </navigation>

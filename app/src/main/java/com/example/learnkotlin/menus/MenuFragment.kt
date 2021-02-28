@@ -1,6 +1,7 @@
 package com.example.learnkotlin.menus
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -25,11 +26,13 @@ class MenuFragment : Fragment() {
         binding = FragmentMenuBinding.inflate(layoutInflater)
         binding.apply {
             menuAddItem.setOnClickListener{
+                Log.d("ADD ITEM", "to Form")
                 findNavController().navigate(R.id.action_menuFragment_to_formFragment)
 
             }
             menuItemList.setOnClickListener {
-                findNavController().navigate(R.id.action_menuFragment_to_listFragment)
+                Log.d("LIST ITEM", "to list")
+                findNavController().navigate(R.id.action_menuFragment_to_listFragment3)
 
             }
         }

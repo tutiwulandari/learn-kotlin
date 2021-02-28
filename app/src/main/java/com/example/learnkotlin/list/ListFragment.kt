@@ -6,15 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.learnkotlin.R
 import com.example.learnkotlin.data.repositories.ItemRepository
-import com.example.learnkotlin.data.repositories.ItemRepositoryInterface
 import com.example.learnkotlin.databinding.FragmentListBinding
-import kotlinx.android.synthetic.main.fragment_list.*
 
 
 class ListFragment : Fragment() {
@@ -34,6 +34,12 @@ class ListFragment : Fragment() {
             Log.d("DATA", "$it")
             rvAdapter.setData(it)
         }
+        //edit to form item
+        viewModel.itemLiveData.observe(this) {
+            Navigation.findNavController(requireView()).navigate(R.id.action_listFragment_to_formFragment,
+            bundleOf("edit_item" to it))
+
+        }
     }
 
     private fun initViewModel() {
@@ -49,9 +55,10 @@ class ListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         binding = FragmentListBinding.inflate(layoutInflater)
         binding.apply {
-            rvAdapter = ListViewAdapter()
+            rvAdapter = ListViewAdapter(viewModel)
             recylerViewItem.apply {
                 layoutManager = LinearLayoutManager(requireContext())
                 adapter = rvAdapter

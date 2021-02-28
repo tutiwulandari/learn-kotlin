@@ -19,4 +19,8 @@ class FormViewModel(val repository: ItemRepository) : ViewModel() {
      fun save(item: Item) {
         _itemLiveData.value = repository.save(item)
     }
+
+    fun validation(item: Item) {
+
+    }
 }
