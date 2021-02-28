@@ -1,5 +1,6 @@
 package com.example.learnkotlin.form
 
+import androidx.appcompat.app.AlertDialog
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.text.InputType
@@ -17,6 +18,8 @@ import com.example.learnkotlin.R
 import com.example.learnkotlin.data.models.Item
 import com.example.learnkotlin.data.repositories.ItemRepository
 import com.example.learnkotlin.databinding.FragmentFormBinding
+import com.example.learnkotlin.utils.ResourceStatus
+import com.example.learnkotlin.utils.components.LoadingDialog
 import java.util.*
 
 
@@ -24,6 +27,7 @@ class FormFragment : Fragment() {
     private lateinit var binding: FragmentFormBinding
     private lateinit var viewModel: FormViewModel
     private var itemValue: Item? = null
+    private lateinit var loadingDialog : AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +42,26 @@ class FormFragment : Fragment() {
     private fun subscribe() {
         viewModel.itemLiveData.observe(this) {
             findNavController().navigate(R.id.action_formFragment_to_listFragment)
+        }
+        viewModel.isValid.observe(this) {
+            when (it.status) {
+                ResourceStatus.LOADING -> {
+                    loadingDialog.show()
+                }
+                ResourceStatus.SUCCESS -> {
+                    viewModel.save(itemValue!!)
+                    loadingDialog.hide()
+                }
+                ResourceStatus.FAIL -> {
+                    loadingDialog.hide()
+                    Toast.makeText(
+                            requireContext(),
+                            it.message,
+                            Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+            }
         }
     }
 
@@ -54,7 +78,7 @@ class FormFragment : Fragment() {
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-
+        loadingDialog = LoadingDialog.build(requireContext())
         binding = FragmentFormBinding.inflate(layoutInflater)
         binding.apply {
 
@@ -128,7 +152,7 @@ class FormFragment : Fragment() {
                         )
                     }
                 }
-                viewModel.save(itemValue!!)
+                viewModel.validation(itemValue!!)
             }
             cancelBtn.setOnClickListener {
                 Navigation.findNavController(requireView()).popBackStack()
