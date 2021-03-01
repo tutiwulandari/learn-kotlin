@@ -7,5 +7,5 @@ interface ItemRepositoryInterface {
     fun delete(item: Item) : Item
     fun findByItem(item: Item) : Item
     fun list(): List<Item>
-
+    fun list(page: Int?): List<Item>
 }

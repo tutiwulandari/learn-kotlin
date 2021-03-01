@@ -21,7 +21,7 @@ class ListFragment : Fragment() {
     private lateinit var binding: FragmentListBinding
     private lateinit var viewModel: ListViewModel
     private lateinit var rvAdapter: ListViewAdapter
-
+    private var page = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,8 +58,21 @@ class ListFragment : Fragment() {
 
         binding = FragmentListBinding.inflate(layoutInflater)
         binding.apply {
+
+
+            nextBtn.setOnClickListener {
+                viewModel.loadItemData(++page)
+                pageText.text = page.toString()
+            }
+            prevBtn.setOnClickListener {
+                if (page > 0) {
+                    viewModel.loadItemData(--page)
+                    pageText.text = page.toString()
+                }
+            }
+
             rvAdapter = ListViewAdapter(viewModel)
-            recylerViewItem.apply {
+            recyclerViewItem.apply {
                 layoutManager = LinearLayoutManager(requireContext())
                 adapter = rvAdapter
             }

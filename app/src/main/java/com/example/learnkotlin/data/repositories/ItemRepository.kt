@@ -56,4 +56,23 @@ class ItemRepository : ItemRepositoryInterface {
     }
 
     override fun list(): List<Item> = itemList
+
+
+    override fun list(page: Int?): List<Item> {
+        val size = itemList.size
+        val from = (page!! * 5)
+        val to = from + 4
+        var limit = if (size - to < 0) {
+            to + (size - to)
+        } else {
+            to
+        }
+
+        val items = mutableListOf<Item>()
+        for (i in from until limit) {
+            items.add(itemList[i])
+        }
+
+        return items
+    }
 }

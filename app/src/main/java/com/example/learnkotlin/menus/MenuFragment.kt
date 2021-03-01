@@ -25,7 +25,7 @@ class MenuFragment : Fragment() {
     ): View? {
         binding = FragmentMenuBinding.inflate(layoutInflater)
         binding.apply {
-            menuAddItem.setOnClickListener{
+            addItem.setOnClickListener{
                 Log.d("ADD ITEM", "to Form")
                 findNavController().navigate(R.id.action_menuFragment_to_formFragment)
 
